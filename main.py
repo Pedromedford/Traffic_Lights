@@ -35,6 +35,32 @@ def get_street_info(num_streets,file_lines):
 
     return street_info
 
+def get_intersection_info(num_streets,file_lines):
+    """
+    Always On vs Traffic Cycle
+    """
+    intersection_info = {}
+
+    for i in range(num_streets):
+
+        street_name = file_lines[i][2]
+        intersect_finish = int(file_lines[i][1])
+
+        if intersect_finish in intersection_info:
+
+            intersection_info[intersect_finish].append(street_name)
+
+        else:
+            intersection_info[intersect_finish] = [street_name]
+
+    return intersection_info
+
+
+
+
+
+
+
 def get_car_info(num_cars,file_lines):
 
     car_info = {}
@@ -51,19 +77,49 @@ def get_car_info(num_cars,file_lines):
 
 def main():
 
-    file_lines = parse_input_file("a.txt")
+    #read all lines
+    file_lines = parse_input_file("e.txt")
+
+    #info from first line
     sim_duration,num_intersections,num_streets,num_cars,bonus_points = get_simulation_info(file_lines.pop(0))
 
+    # intersection info
+    intersection_info = get_intersection_info(num_streets, file_lines)
+
+    #street info
     street_info = get_street_info(num_streets,file_lines)
     file_lines = file_lines[num_streets:]
 
+    #car info
     car_path_info = get_car_info(num_cars,file_lines)
 
+    #to be moved
+
+    with open("answer_e.txt","w") as output_file:
+
+        output_file.write(str(num_intersections)+"\n")
+
+        for intersection in intersection_info.keys():
+
+            output_file.write(str(intersection) + "\n")
+            output_file.write(str(len(intersection_info[intersection]))+ "\n")
+
+            for street in intersection_info[intersection]:
+
+                output_file.write(str(street) + " 1\n")
+
+
+
+
+    """
     print("\nDuration:",sim_duration,"\nIntersections:",num_intersections,"\nStreets:",num_streets,"\nCars:",
           num_cars,"\nBonus Points:", bonus_points,"\n")
 
     print(street_info)
     print(car_path_info)
+    """
+    print(intersection_info)
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
