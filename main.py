@@ -59,11 +59,11 @@ def main():
 
     car_path_info = get_car_info(num_cars,file_lines)
 
+    print("\nDuration:",sim_duration,"\nIntersections:",num_intersections,"\nStreets:",num_streets,"\nCars:",
+          num_cars,"\nBonus Points:", bonus_points,"\n")
 
     print(street_info)
     print(car_path_info)
-    print("\nDuration:",sim_duration,"\nIntersections:",num_intersections,"\nStreets:",num_streets,"\nCars:",
-          num_cars,"\nBonus Points:", bonus_points)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
